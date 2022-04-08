@@ -23,12 +23,23 @@ public class CartItem extends BaseEntity {
     @JoinColumn(name = "item_id")
     private Item item;
 
+    private String shipNo;
+
     private int count;
 
     public static CartItem createCartItem(Cart cart, Item item, int count) {
         CartItem cartItem = new CartItem();
         cartItem.setCart(cart);
         cartItem.setItem(item);
+        cartItem.setCount(count);
+        return cartItem;
+    }
+
+    public static CartItem createCartItem(Cart cart, Item item, String shipNo, int count) {
+        CartItem cartItem = new CartItem();
+        cartItem.setCart(cart);
+        cartItem.setItem(item);
+        cartItem.setShipNo(shipNo);
         cartItem.setCount(count);
         return cartItem;
     }

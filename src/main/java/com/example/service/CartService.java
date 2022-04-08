@@ -51,11 +51,19 @@ public class CartService {
             savedCartItem.addCount(cartItemDto.getCount());
             return savedCartItem.getId();
         } else {
-            CartItem cartItem = CartItem.createCartItem(cart, item, cartItemDto.getCount());
-            cartItemRepository.save(cartItem);
-            return cartItem.getId();
+            if (cartItemDto.getShipNo() != "") {
+                CartItem cartItem = CartItem.createCartItem(cart, item, cartItemDto.getShipNo(), cartItemDto.getCount());
+                cartItemRepository.save(cartItem);
+                return cartItem.getId();
+            }
+            else {
+                CartItem cartItem = CartItem.createCartItem(cart, item, cartItemDto.getCount());
+                cartItemRepository.save(cartItem);
+                return cartItem.getId();
+            }
         }
     }
+
 
     @Transactional(readOnly = true)
     public List<CartDetailDto> getCartList(String email){
@@ -109,6 +117,7 @@ public class CartService {
 
             OrderDto orderDto = new OrderDto();
             orderDto.setItemId(cartItem.getItem().getId());
+            orderDto.setShipNo(cartItem.getShipNo());
             orderDto.setCount(cartItem.getCount());
             orderDtoList.add(orderDto);
         }

@@ -11,6 +11,8 @@ public class CartOrderDto {
 
     private Long cartItemId;
 
+    private String shipNo;
+
     private List<CartOrderDto> cartOrderDtoList;
 
 }
