@@ -48,7 +48,7 @@ class MemberServiceTest {
         MemberFormDto memberFormDto = new MemberFormDto();
         memberFormDto.setEmail("test@email.com");
         memberFormDto.setName("홍길동");
-        memberFormDto.setAddress("서울시 마포구 합정동");
+//        memberFormDto.setAddress("서울시 마포구 합정동");
         memberFormDto.setPassword("1234");
 
         return Member.createMember(memberFormDto, passwordEncoder);
@@ -58,7 +58,7 @@ class MemberServiceTest {
         MemberFormDto memberFormDto = new MemberFormDto();
         memberFormDto.setEmail(email);
         memberFormDto.setName("홍길동");
-        memberFormDto.setAddress("서울시 마포구 합정동");
+//        memberFormDto.setAddress("서울시 마포구 합정동");
         memberFormDto.setPassword(password);
 
         Member member = Member.createMember(memberFormDto, passwordEncoder);
@@ -73,7 +73,7 @@ class MemberServiceTest {
 
         assertEquals(member.getEmail(), saveMember.getEmail());
         assertEquals(member.getName(), saveMember.getName());
-        assertEquals(member.getAddress(), saveMember.getAddress());
+//        assertEquals(member.getAddress(), saveMember.getAddress());
         assertEquals(member.getPassword(), saveMember.getPassword());
         assertEquals(member.getRole(), saveMember.getRole());
     }

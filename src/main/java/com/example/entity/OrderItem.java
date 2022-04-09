@@ -2,11 +2,13 @@ package com.example.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 
 @Entity
 @Getter @Setter
+@ToString
 public class OrderItem extends BaseEntity {
 
     @Id @GeneratedValue

@@ -1,5 +1,6 @@
 package com.example.repository;
 
+import com.example.constant.OrderStatus;
 import com.example.entity.Order;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -19,4 +20,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
             "where o.member.email = :email"
     )
     Long countOrder(@Param("email") String email);
+
+    List<Order> findOrderByOrderStatus(OrderStatus orderStatus);
+
 }
