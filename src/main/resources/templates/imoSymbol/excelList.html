@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns="http://www.w3.org/1999/html"
+      layout:decorate="~{layouts/layout1}">
+
+<meta charset="UTF-8">
+<meta name="_csrf" th:content="${_csrf.token}"/>
+<meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+<title>Title</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+
+<body>
+
+
+<div layout:fragment="content">
+
+    <table class="table table-striped">
+  <span>
+                 <a th:href="@{/excelDown/IMO_SYMBOL.xlsx}">
+                     <button type="button" class="btn btn-outline-primary">Excel Download</button>
+                 </a>
+            </span>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">ShipNo</th>
+            <th scope="col">IMG</th>
+            <th scope="col">Description</th>
+            <th scope="col">QTY</th>
+            <th scope="col">PERSON</th>
+            <th scope="col">DEPARTMENT</th>
+            <th scope="col">PhoneNo</th>
+        </tr>
+
+
+    </table>
+
+
+</div>
+</body>
+
+
+</th:block>
+</th:block>
+
+</html>

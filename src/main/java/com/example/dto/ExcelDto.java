@@ -5,10 +5,15 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Setter
 @ToString
 public class ExcelDto {
+
+    public static List<List<ExcelDto>> staticExcelDTO = new ArrayList<>();
 
     private Long id;
 
@@ -26,6 +31,5 @@ public class ExcelDto {
 
     private String phoneNo;
 
-    private String imgName;
 
 }

@@ -9,6 +9,8 @@ import com.example.entity.Order;
 import com.example.entity.OrderItem;
 import com.example.repository.*;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +20,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Transactional
+@Log
 public class ExcelService {
 
     private final MemberRepository memberRepository;
@@ -26,6 +29,10 @@ public class ExcelService {
     private final OrderRepository orderRepository;
     private final ItemImgRepository itemImgRepository;
 
+    @Value("${itemImgLocation}")
+    private String itemImgLocation;
+
+
     public List<List<ExcelDto>> excel() {
         List<Order> orders = orderRepository.findOrderByOrderStatus(OrderStatus.ORDER);
         List<List<ExcelDto>> orderItemList = new ArrayList<>();
@@ -33,9 +40,11 @@ public class ExcelService {
         for (Order order : orders) {
             Long id = order.getId();
             List<ExcelDto> excelDtoList = getOrderItem(id);
+
             orderItemList.add(excelDtoList);
         }
 
+//        changedOrderStatus();
         return orderItemList;
     }
 
@@ -52,9 +61,8 @@ public class ExcelService {
             excelDto.setPerson(getPersonName(orderItem.getCreatedBy()));
             excelDto.setDepartment(getDepartment(orderItem));
             excelDto.setDescription(orderItem.getItem().getItemNm());
-            excelDto.setImgName(orderItem.getItem().getItemNm());
             excelDto.setQty(orderItem.getCount());
-            excelDto.setImgUrl(getImageUrl(orderItem.getItem().getId()));
+            excelDto.setImgUrl(itemImgLocation + "/" + getImageName(orderItem.getItem().getId()));
             excelDto.setPhoneNo(getPhoneNo(orderItem.getCreatedBy()));
             excelDtos.add(excelDto);
             index++;
@@ -73,17 +81,9 @@ public class ExcelService {
         return member.getName();
     }
 
-    private String getImageUrl(Long id) {
-        System.out.println("-------------------------------");
-        System.out.println(itemImgRepository.findByItemIdAndRepimgYn(id, "Y"));
-        System.out.println("-------------------------------");
-
+    private String getImageName(Long id) {
         ItemImg itemImg = itemImgRepository.findByItemIdAndRepimgYn(id, "Y");
-
-        System.out.println("-------------------------------");
-        System.out.println(itemImg.getImgUrl());
-        System.out.println("-------------------------------");
-        return itemImg.getImgUrl();
+        return itemImg.getImgName();
     }
 
     private String getDepartment(OrderItem orderItem) {
